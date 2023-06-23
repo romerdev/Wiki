@@ -2,26 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.bg-primary-color {
+  @apply bg-emerald-100;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.bg-accent-color {
+  @apply bg-emerald-200;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+a:focus,
+button:focus {
+  @apply outline-emerald-600 outline-offset-2;
+}
+
+.icon-button {
+  @apply bg-emerald-300 hover:bg-emerald-400 focus:bg-emerald-400 text-emerald-900 h-8 w-8 grid place-content-center rounded-md;
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+article a {
+  @apply text-emerald-600 font-bold underline-offset-1 hover:underline;
 }
