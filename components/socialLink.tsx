@@ -41,12 +41,19 @@ const SocialLink = ({ url, type }: { url: string; type: string }) => {
   const icon = getIcon();
 
   return (
-    <a href={url} target="_blank" className="icon-button">
+    <a
+      href={url}
+      target="_blank"
+      className="icon-button"
+      aria-label={`${capitalizeFirstLetter(type.replace("_", " "))}`}
+      title={`${capitalizeFirstLetter(type.replace("_", " "))}`}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
         className="h-4 w-4"
+        aria-hidden="true"
       >
         {icon}
       </svg>
@@ -55,3 +62,7 @@ const SocialLink = ({ url, type }: { url: string; type: string }) => {
 };
 
 export default SocialLink;
+
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

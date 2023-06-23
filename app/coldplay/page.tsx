@@ -10,12 +10,18 @@ export default function Home() {
     <>
       <header className="grid grid-cols-4 gap-x-12 lg:gap-x-24 max-w-screen-2xl mx-auto px-4 md:px-24 mb-6">
         <div className="col-span-1">
-          <a href="/" className="icon-button">
+          <a
+            href="/"
+            className="icon-button"
+            aria-label="Go back to the homepage"
+            title="Go back to the homepage"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
               className="w-4 h-4"
+              aria-hidden="true"
             >
               <path
                 fillRule="evenodd"
@@ -32,12 +38,17 @@ export default function Home() {
         </div>
         <div className="col-span-1 flex justify-end gap-x-3">
           <Menu as="div" className="relative">
-            <Menu.Button className="icon-button">
+            <Menu.Button
+              className="icon-button"
+              aria-label="Toggle the language switcher"
+              title="Toggle the language switcher"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
                 className="w-4 h-4"
+                aria-hidden="true"
               >
                 <path d="M7.75 2.75a.75.75 0 00-1.5 0v1.258a32.987 32.987 0 00-3.599.278.75.75 0 10.198 1.487A31.545 31.545 0 018.7 5.545 19.381 19.381 0 017 9.56a19.418 19.418 0 01-1.002-2.05.75.75 0 00-1.384.577 20.935 20.935 0 001.492 2.91 19.613 19.613 0 01-3.828 4.154.75.75 0 10.945 1.164A21.116 21.116 0 007 12.331c.095.132.192.262.29.391a.75.75 0 001.194-.91c-.204-.266-.4-.538-.59-.815a20.888 20.888 0 002.333-5.332c.31.031.618.068.924.108a.75.75 0 00.198-1.487 32.832 32.832 0 00-3.599-.278V2.75z" />
                 <path
@@ -62,6 +73,8 @@ export default function Home() {
                     {({ active }) => (
                       <a
                         href="/"
+                        aria-label="Change the language to English"
+                        title="Change the language to English"
                         className={`flex items-center underline-offset-2 gap-x-2  ${
                           active ? "underline" : ""
                         }`}
@@ -72,6 +85,7 @@ export default function Home() {
                           height={24}
                           className="h-4 w-6 object-cover rounded-sm"
                           alt="Flag of England"
+                          aria-hidden="true"
                         />
                         <p>English</p>
                       </a>
@@ -81,6 +95,8 @@ export default function Home() {
                     {({ active }) => (
                       <a
                         href="/"
+                        aria-label="Change the language to Dutch"
+                        title="Change the language to Dutch"
                         className={`flex items-center underline-offset-2 gap-x-2  ${
                           active ? "underline" : ""
                         }`}
@@ -91,6 +107,7 @@ export default function Home() {
                           height={24}
                           className="h-4 w-6 object-cover rounded-sm"
                           alt="Flag of The Netherlands"
+                          aria-hidden="true"
                         />
                         <p>Dutch</p>
                       </a>
@@ -100,6 +117,8 @@ export default function Home() {
                     {({ active }) => (
                       <a
                         href="/"
+                        aria-label="Change the language to German"
+                        title="Change the language to German"
                         className={`flex items-center underline-offset-2 gap-x-2  ${
                           active ? "underline" : ""
                         }`}
@@ -110,6 +129,7 @@ export default function Home() {
                           height={24}
                           className="h-4 w-6 object-cover rounded-sm"
                           alt="Flag of Germany"
+                          aria-hidden="true"
                         />
                         <p>German</p>
                       </a>
@@ -119,12 +139,17 @@ export default function Home() {
               </Menu.Items>
             </Transition>
           </Menu>
-          <button className="icon-button">
+          <button
+            className="icon-button"
+            aria-label="Contribute to this page"
+            title="Contribute to this page"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
               className="w-4 h-4"
+              aria-hidden="true"
             >
               <path d="M2.695 14.763l-1.262 3.154a.5.5 0 00.65.65l3.155-1.262a4 4 0 001.343-.885L17.5 5.5a2.121 2.121 0 00-3-3L3.58 13.42a4 4 0 00-.885 1.343z" />
             </svg>
@@ -214,6 +239,7 @@ function MainImage({ className = "" }) {
       src="/coldplay.webp"
       width={500}
       height={500}
+      priority
       className={`w-full aspect-square object-top object-cover rounded-lg mb-4 ${className}`}
       alt="Coldplay band members"
     />
