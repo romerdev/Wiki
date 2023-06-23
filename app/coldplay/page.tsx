@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import SocialLink from "@/components/socialLink";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -65,13 +66,13 @@ export default function Home() {
                           active ? "underline" : ""
                         }`}
                       >
-                        <div className="w-7">
-                          <img
-                            src={"https://flagcdn.com/gb.svg"}
-                            className="h-4 w-6 object-cover"
-                            alt="Flag of England"
-                          />
-                        </div>
+                        <Image
+                          src="/flags/gb.svg"
+                          width={24}
+                          height={24}
+                          className="h-4 w-6 object-cover rounded-sm"
+                          alt="Flag of England"
+                        />
                         <p>English</p>
                       </a>
                     )}
@@ -84,13 +85,13 @@ export default function Home() {
                           active ? "underline" : ""
                         }`}
                       >
-                        <div className="w-7">
-                          <img
-                            src={"https://flagcdn.com/nl.svg"}
-                            className="h-4 w-6 object-cover"
-                            alt="Flag of The Netherlands"
-                          />
-                        </div>
+                        <Image
+                          src="/flags/nl.svg"
+                          width={24}
+                          height={24}
+                          className="h-4 w-6 object-cover rounded-sm"
+                          alt="Flag of The Netherlands"
+                        />
                         <p>Dutch</p>
                       </a>
                     )}
@@ -103,13 +104,13 @@ export default function Home() {
                           active ? "underline" : ""
                         }`}
                       >
-                        <div className="w-7">
-                          <img
-                            src={"https://flagcdn.com/de.svg"}
-                            className="h-4 w-6 object-cover"
-                            alt="Flag of Germany"
-                          />
-                        </div>
+                        <Image
+                          src="/flags/de.svg"
+                          width={24}
+                          height={24}
+                          className="h-4 w-6 object-cover rounded-sm"
+                          alt="Flag of Germany"
+                        />
                         <p>German</p>
                       </a>
                     )}
@@ -143,7 +144,7 @@ export default function Home() {
               Coldplay are a British rock band formed in London in 1997. They
               consist of vocalist and pianist Chris Martin, guitarist Jonny
               Buckland, bassist Guy Berryman, drummer Will Champion and creative
-              director Phil Harvey.[a] They met at University College London and
+              director Phil Harvey. They met at University College London and
               began playing music together from 1997 to 1998, initially calling
               themselves Big Fat Noises and later Starfish.
             </p>
@@ -154,22 +155,22 @@ export default function Home() {
             </div>
             <p>
               After independently releasing an extended play, Safety (1998),
-              Coldplay signed with Parlophone in 1999. The band's debut album,
-              Parachutes (2000), included their breakthrough single "Yellow" and
-              received a Brit Award for British Album of the Year, a Grammy
-              Award for Best Alternative Music Album and a Mercury Prize
-              nomination. Their second album, A Rush of Blood to the Head
-              (2002), won the same accolades and included the single "Clocks",
-              which won a Grammy Award for Record of the Year. The band's third
-              album, X&Y (2005), which completed what the band considered to be
-              a trilogy, and their fourth album, Viva la Vida or Death and All
-              His Friends (2008), were both nominated for a Grammy Award for
-              Best Rock Album, with the latter winning; both albums were the
-              best-selling of their respective years, topping the charts in over
-              30 countries. Viva la Vida was also nominated for Album of the
-              Year, while its title track became the first single by a British
-              group to simultaneously reach number one in the United Kingdom and
-              United States in the 21st century.
+              Coldplay signed with Parlophone in 1999. The band&apos;s debut
+              album, Parachutes (2000), included their breakthrough single
+              &quot;Yellow&quot; and received a Brit Award for British Album of
+              the Year, a Grammy Award for Best Alternative Music Album and a
+              Mercury Prize nomination. Their second album, A Rush of Blood to
+              the Head (2002), won the same accolades and included the single
+              &quot;Clocks&quot;, which won a Grammy Award for Record of the
+              Year. The band&apos;s third album, X&Y (2005), which completed
+              what the band considered to be a trilogy, and their fourth album,
+              Viva la Vida or Death and All His Friends (2008), were both
+              nominated for a Grammy Award for Best Rock Album, with the latter
+              winning; both albums were the best-selling of their respective
+              years, topping the charts in over 30 countries. Viva la Vida was
+              also nominated for Album of the Year, while its title track became
+              the first single by a British group to simultaneously reach number
+              one in the United Kingdom and United States in the 21st century.
             </p>
           </main>
         </article>
@@ -187,21 +188,34 @@ export default function Home() {
 
 function Socials({ className = "" }) {
   return (
-    <div className={`flex gap-3 mt-4 ${className}`}>
-      <SocialLink url="/" type="instagram" />
-      <SocialLink url="/" type="twitter" />
-      <SocialLink url="/" type="tiktok" />
-      <SocialLink url="/" type="website" />
+    <div className={`flex flex-wrap gap-3 mt-4 ${className}`}>
+      <SocialLink url="https://www.coldplay.com/" type="website" />
+      <SocialLink
+        url="https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU"
+        type="spotify"
+      />
+      <SocialLink
+        url="https://music.apple.com/us/artist/coldplay/471744/"
+        type="apple_music"
+      />
+      <SocialLink url="https://www.instagram.com/coldplay/" type="instagram" />
+
+      <SocialLink
+        url="https://www.youtube.com/user/ColdplayVEVO"
+        type="youtube"
+      />
     </div>
   );
 }
 
 function MainImage({ className = "" }) {
   return (
-    <img
-      src="https://www.neste.com/sites/neste.com/files/release_attachments/neste_coldplay_collaboration_release_photo._photo_courtesy_of_coldplay_2.jpg"
+    <Image
+      src="/coldplay.webp"
+      width={500}
+      height={500}
       className={`w-full aspect-square object-top object-cover rounded-lg mb-4 ${className}`}
-      alt=""
+      alt="Coldplay band members"
     />
   );
 }
