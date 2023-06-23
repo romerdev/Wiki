@@ -8,8 +8,8 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <header className="grid grid-cols-4 gap-x-12 lg:gap-x-24 max-w-screen-2xl mx-auto px-4 md:px-24 mb-6">
-        <div className="col-span-1">
+      <header className="flex xs:grid grid-cols-6 md:grid-cols-4 md:gap-x-12 lg:gap-x-24 max-w-screen-2xl mx-auto px-4 lg:px-24 mb-6">
+        <div className="col-span-2 md:col-span-1">
           <a
             href="/"
             className="icon-button"
@@ -32,11 +32,11 @@ export default function Home() {
           </a>
         </div>
         <div className="col-span-2">
-          <h1 className="font-bold text-2xl lg:text-4xl text-center xl:text-start">
+          <h1 className="font-bold text-2xl lg:text-4xl text-center xl:text-start ml-4 xs:ml-0">
             Coldplay
           </h1>
         </div>
-        <div className="col-span-1 flex justify-end gap-x-3">
+        <div className="col-span-2 md:col-span-1 flex justify-end gap-x-2 md:gap-x-3 ml-auto xs:ml-0">
           <Menu as="div" className="relative">
             <Menu.Button
               className="icon-button"
@@ -156,7 +156,7 @@ export default function Home() {
           </button>
         </div>
       </header>
-      <div className="md:grid md:grid-cols-3 xl:grid-cols-4 md:gap-x-12 lg:gap-x-24 max-w-screen-2xl mx-auto px-4 md:px-24">
+      <div className="md:grid md:grid-cols-3 xl:grid-cols-4 md:gap-x-12 lg:gap-x-24 max-w-screen-2xl mx-auto px-4 lg:px-24">
         <aside className="col-span-1 relative hidden xl:block">
           <div className="sticky top-6">
             <MainImage />
@@ -173,10 +173,16 @@ export default function Home() {
               began playing music together from 1997 to 1998, initially calling
               themselves Big Fat Noises and later Starfish.
             </p>
-            <div className="md:hidden">
-              <MainImage />
-              <Biography />
-              <Socials />
+            <div className="relative md:hidden">
+              <div className="sm:w-52 sm:h-52 sm:absolute sm:right-0">
+                <MainImage />
+              </div>
+              <div>
+                <Biography />
+                <div className="sm:absolute sm:right-0 sm:top-52 sm:w-52">
+                  <Socials />
+                </div>
+              </div>
             </div>
             <p>
               After independently releasing an extended play, Safety (1998),
@@ -213,7 +219,7 @@ export default function Home() {
 
 function Socials({ className = "" }) {
   return (
-    <div className={`flex flex-wrap gap-3 mt-4 ${className}`}>
+    <div className={`flex flex-wrap gap-2 md:gap-3 mt-4 ${className}`}>
       <SocialLink url="https://www.coldplay.com/" type="website" />
       <SocialLink
         url="https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU"
