@@ -23,6 +23,10 @@ button {
   @apply cursor-pointer;
 }
 
+.link-color {
+  @apply text-emerald-600;
+}
+
 article a {
-  @apply text-emerald-600 font-bold underline-offset-1 hover:underline;
+  @apply link-color font-bold underline-offset-1 hover:underline;
 }

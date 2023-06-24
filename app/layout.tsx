@@ -15,9 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${yrsa.className} bg-primary-color my-12`}>
-        {children}
-      </body>
+      <body className={`${yrsa.className} bg-primary-color`}>{children}</body>
     </html>
   );
 }
