@@ -17,21 +17,37 @@ export const generateMetadata = ({
   const wiki = allWikis.find(
     (wiki) => wiki._raw.flattenedPath === params.slug.join("/")
   );
+
   if (!wiki) {
     return {
       notFound: true,
     };
   }
-  return { title: wiki.title };
-};
 
-const languages = [
-  { abbreviation: "gb", title: "English" },
-  { abbreviation: "fr", title: "French" },
-  { abbreviation: "de", title: "German" },
-  { abbreviation: "es", title: "Spanish" },
-  { abbreviation: "nl", title: "Dutch" },
-];
+  let metaTitle = wiki.title;
+
+  const hasParent = wiki._raw.flattenedPath.split("/").length > 2;
+  let parentWiki;
+
+  if (hasParent) {
+    parentWiki = allWikis.find(
+      (wiki) => wiki._raw.flattenedPath === params.slug.slice(0, -1).join("/")
+    );
+
+    if (parentWiki) {
+      metaTitle = `${wiki.title} - ${parentWiki.title}`;
+    }
+  }
+
+  return {
+    title: metaTitle,
+    description: wiki.intro,
+    parentWiki,
+    openGraph: {
+      images: [wiki.image],
+    },
+  };
+};
 
 const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
   const wiki = allWikis.find(
@@ -51,6 +67,13 @@ const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
     );
   }
 
+  const socialItems = wiki.socials || {};
+
+  const languageAbbreviations: Array<string> = wiki.languages?.split(",") || [];
+  const languages = languageAbbreviations.map((abbreviation: string) => ({
+    abbreviation,
+  }));
+
   return (
     <>
       <Header
@@ -58,12 +81,13 @@ const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
         languages={languages}
         parentLink={parentWiki?.url}
         parentTitle={parentWiki?.title}
+        contributePage={wiki.url}
       />
       <div className="md:grid md:grid-cols-3 xl:grid-cols-4 md:gap-x-12 lg:gap-x-24 max-w-screen-2xl mx-auto px-4 lg:px-24">
         <aside className="col-span-1 relative hidden xl:block">
           <div className="sticky top-6">
             <MainImage wiki={wiki} />
-            <Socials />
+            <Socials socialItems={socialItems} />
           </div>
         </aside>
         <article className="col-span-2">
@@ -76,7 +100,7 @@ const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
               <div>
                 <Biography wiki={wiki} />
                 <div className="sm:absolute sm:right-0 sm:top-52 sm:w-52">
-                  <Socials />
+                  <Socials socialItems={socialItems} />
                 </div>
               </div>
             </div>
@@ -90,7 +114,7 @@ const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
           <div className="sticky top-6">
             <MainImage wiki={wiki} className="xl:hidden" />
             <Biography wiki={wiki} />
-            <Socials className="xl:hidden" />
+            <Socials socialItems={socialItems} className="xl:hidden" />
           </div>
         </aside>
       </div>
@@ -100,24 +124,26 @@ const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
 
 export default WikiPage;
 
-function Socials({ className = "" }) {
+function Socials({
+  className,
+  socialItems,
+}: {
+  className?: string;
+  socialItems: Record<string, string>;
+}) {
+  const filteredSocials = socialItems
+    ? Object.entries(socialItems).slice(0, -2)
+    : [];
+
+  if (filteredSocials.length === 0) {
+    return null;
+  }
+
   return (
     <div className={`flex flex-wrap gap-2 md:gap-3 mt-4 ${className}`}>
-      <SocialLink url="https://www.coldplay.com/" type="website" />
-      <SocialLink
-        url="https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU"
-        type="spotify"
-      />
-      <SocialLink
-        url="https://music.apple.com/us/artist/coldplay/471744/"
-        type="apple_music"
-      />
-      <SocialLink url="https://www.instagram.com/coldplay/" type="instagram" />
-
-      <SocialLink
-        url="https://www.youtube.com/user/ColdplayVEVO"
-        type="youtube"
-      />
+      {filteredSocials.map(([platform, url]) => (
+        <SocialLink key={platform} url={url} type={platform} />
+      ))}
     </div>
   );
 }
@@ -140,7 +166,7 @@ function Biography({ wiki }: { wiki: Wiki }) {
     <div className="bg-accent-color rounded-lg py-8 px-4">
       <strong className="text-xl">Biography</strong>
       <div
-        className="mt-4"
+        className="mt-4 biography"
         dangerouslySetInnerHTML={{
           __html: sanitize(
             marked.parse(wiki.biography, {

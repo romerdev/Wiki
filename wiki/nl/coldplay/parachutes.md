@@ -7,13 +7,11 @@ biography: |
   **Members**
 
   - Chris Martin (vocalist, pianist)
-  -Jonny Buckland (guitarist)
+  - Jonny Buckland (guitarist)
 
   **Origin**
 
   London, England
-
-  <IMG SRC="/parachutes.webp">
 
   **Genres**
 

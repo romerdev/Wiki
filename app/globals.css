@@ -30,3 +30,15 @@ button {
 article a {
   @apply link-color font-bold underline-offset-1 hover:underline;
 }
+
+.biography > * {
+  @apply pb-3;
+}
+
+.biography > *:last-child {
+  @apply pb-0;
+}
+
+.biography p:has(strong) {
+  @apply pb-1;
+}
