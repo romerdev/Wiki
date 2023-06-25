@@ -1,10 +1,13 @@
 import { Wiki, allWikis } from "contentlayer/generated";
-import SocialLink from "@/components/socialLink";
-import Header from "@/components/header";
+import SocialLink from "@/components/SocialLink";
+import Header from "@/components/Header";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
 import { sanitize } from "isomorphic-dompurify";
+import { Noto_Sans_JP } from "next/font/google";
+
+const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
 
 export const generateStaticParams = async () =>
   allWikis.map((wiki) => ({ slug: wiki._raw.flattenedPath.split("/") }));
@@ -49,7 +52,11 @@ export const generateMetadata = ({
   };
 };
 
-const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
+interface WikiPageProps {
+  params: { slug: Array<string> };
+}
+
+const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
   const wiki = allWikis.find(
     (wiki) => wiki._raw.flattenedPath === params.slug.join("/")
   );
@@ -90,7 +97,11 @@ const WikiPage = ({ params }: { params: { slug: Array<string> } }) => {
             <Socials socialItems={socialItems} />
           </div>
         </aside>
-        <article className="col-span-2">
+        <article
+          className={`col-span-2 ${
+            wiki.url.includes("jp") ? noto_sans_jp.className : ""
+          }`}
+        >
           <main className="text-lg grid gap-y-6 lg:max-w-xl xl:max-w-none xl:mx-auto">
             <p>{wiki.intro}</p>
             <div className="relative md:hidden">

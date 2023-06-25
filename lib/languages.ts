@@ -7,8 +7,7 @@ export interface Language {
 const languageObjects = [
   { abbreviation: "en", title: "English", flag: "gb" },
   { abbreviation: "nl", title: "Dutch", flag: "nl" },
-  { abbreviation: "de", title: "German", flag: "de" },
-  { abbreviation: "es", title: "Spanish", flag: "es" },
+  { abbreviation: "jp", title: "Japanese", flag: "jp" },
 ];
 
 export default languageObjects;
