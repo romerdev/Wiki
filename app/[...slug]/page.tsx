@@ -5,9 +5,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
 import { sanitize } from "isomorphic-dompurify";
-import { Noto_Sans_JP } from "next/font/google";
-
-const noto_sans_jp = Noto_Sans_JP({ subsets: ["latin"] });
 
 export const generateStaticParams = async () =>
   allWikis.map((wiki) => ({ slug: wiki._raw.flattenedPath.split("/") }));
@@ -28,6 +25,10 @@ export const generateMetadata = ({
   }
 
   let metaTitle = wiki.title;
+
+  if (wiki.url.includes("ar")) {
+    metaTitle = wiki.title.split(" - ")[1] + " - " + wiki.title.split(" - ")[0];
+  }
 
   const hasParent = wiki._raw.flattenedPath.split("/").length > 2;
   let parentWiki;
@@ -81,8 +82,14 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
     abbreviation,
   }));
 
+  let direction = "ltr";
+
+  if (wiki.url.includes("ar")) {
+    direction = "rtl";
+  }
+
   return (
-    <>
+    <div dir={direction}>
       <Header
         title={wiki.title}
         languages={languages}
@@ -97,20 +104,16 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
             <Socials socialItems={socialItems} />
           </div>
         </aside>
-        <article
-          className={`col-span-2 ${
-            wiki.url.includes("jp") ? noto_sans_jp.className : ""
-          }`}
-        >
-          <main className="text-lg grid gap-y-6 lg:max-w-xl xl:max-w-none xl:mx-auto">
+        <article className="col-span-2">
+          <main className="grid gap-y-6 lg:max-w-xl xl:max-w-none xl:mx-auto text-xl">
             <p>{wiki.intro}</p>
             <div className="relative md:hidden">
-              <div className="sm:w-52 sm:h-52 sm:absolute sm:right-0">
+              <div className="sm:w-52 sm:h-52 sm:absolute sm:end-0">
                 <MainImage wiki={wiki} />
               </div>
               <div>
                 <Biography wiki={wiki} />
-                <div className="sm:absolute sm:right-0 sm:top-52 sm:w-52">
+                <div className="sm:absolute sm:end-0 sm:top-52 sm:w-52">
                   <Socials socialItems={socialItems} />
                 </div>
               </div>
@@ -129,7 +132,7 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
           </div>
         </aside>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -174,19 +177,16 @@ function MainImage({ className, wiki }: { className?: string; wiki: Wiki }) {
 
 function Biography({ wiki }: { wiki: Wiki }) {
   return (
-    <div className="bg-accent-color rounded-lg py-8 px-4">
-      <strong className="text-xl">Biography</strong>
-      <div
-        className="mt-4 biography"
-        dangerouslySetInnerHTML={{
-          __html: sanitize(
-            marked.parse(wiki.biography, {
-              headerIds: false,
-              mangle: false,
-            })
-          ),
-        }}
-      ></div>
-    </div>
+    <div
+      className="bg-accent-color rounded-lg py-8 px-4 biography"
+      dangerouslySetInnerHTML={{
+        __html: sanitize(
+          marked.parse(wiki.biography, {
+            headerIds: false,
+            mangle: false,
+          })
+        ),
+      }}
+    ></div>
   );
 }

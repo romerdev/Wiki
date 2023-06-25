@@ -20,9 +20,12 @@ biography: |
 
   Alternative rock · Pop rock · Post-Britpop · Pop
 socials:
-  instagram: https://instagram.com
-  youtube: https://linkedin.com
-languages: nl,jp
+  website: https://www.coldplay.com/
+  instagram: https://www.instagram.com/coldplay/
+  youtube: https://www.youtube.com/channel/UCDPM_n1atn2ijUwHd0NNRQw
+  spotify: https://open.spotify.com/artist/4gzpq5DPGxSnKTe4SA8HAU
+  apple_music: https://music.apple.com/en/artist/coldplay/471744
+languages: zh,es,ar,fr,jp,nl
 ---
 
 After independently releasing an extended play, Safety (1998), Coldplay signed with Parlophone in 1999. The band's debut album, Parachutes (2000), included their breakthrough single "Yellow" and received a Brit Award for British Album of the Year, a Grammy Award for Best Alternative Music Album and a Mercury Prize nomination. Their second album, A Rush of Blood to the Head (2002), won the same accolades and included the single "Clocks", which won a Grammy Award for Record of the Year. The band's third album, X&Y (2005), which completed what the band considered to be a trilogy, and their fourth album, Viva la Vida or Death and All His Friends (2008), were both nominated for a Grammy Award for Best Rock Album, with the latter winning; both albums were the best-selling of their respective years, topping the charts in over 30 countries. Viva la Vida was also nominated for Album of the Year, while its title track became the first single by a British group to simultaneously reach number one in the United Kingdom and United States in the 21st century.

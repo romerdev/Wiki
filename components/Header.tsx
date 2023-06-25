@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({
         </p>
       )}
     </div>
-    <div className="col-span-2 md:col-span-1 flex justify-end gap-x-2 md:gap-x-3 ml-auto xl:ml-0">
+    <div className="col-span-2 md:col-span-1 flex justify-end gap-x-2 md:gap-x-3 ms-auto xl:ms-0">
       {languages.length > 0 && (
         <LanguageSwitcher languages={languages} url={contributePage} />
       )}
