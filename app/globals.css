@@ -42,3 +42,25 @@ article a {
 .biography p:has(strong) {
   @apply pb-1;
 }
+
+.article-body p,
+.article-body ul,
+.article-body iframe {
+  @apply mb-6;
+}
+
+.article-body ul {
+  @apply list-disc list-inside ml-4;
+}
+
+.article-body h2 {
+  @apply text-3xl font-bold mb-4 pb-2 border-b-2 border-emerald-300;
+}
+
+.article-body h3 {
+  @apply text-2xl font-bold mb-2;
+}
+
+.article-body blockquote {
+  @apply border-l-4 border-emerald-300 pl-4 mb-6;
+}

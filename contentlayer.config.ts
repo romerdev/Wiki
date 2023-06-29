@@ -27,7 +27,8 @@ const Socials = defineNestedType(() => ({
 
 export const Wiki = defineDocumentType(() => ({
   name: "Wiki",
-  filePathPattern: `**/*.md`,
+  filePathPattern: `**/*.mdx`,
+  contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
     intro: { type: "string", required: true },

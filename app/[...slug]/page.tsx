@@ -1,10 +1,17 @@
 import { Wiki, allWikis } from "contentlayer/generated";
+import type { MDXComponents } from "mdx/types";
+import { useMDXComponent } from "next-contentlayer/hooks";
 import SocialLink from "@/components/SocialLink";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { marked } from "marked";
 import { sanitize } from "isomorphic-dompurify";
+import { Spotify } from "react-spotify-embed";
+
+const mdxComponents: MDXComponents = {
+  Spotify: ({ link }) => <Spotify wide link={link as string} />,
+};
 
 export const generateStaticParams = async () =>
   allWikis.map((wiki) => ({ slug: wiki._raw.flattenedPath.split("/") }));
@@ -62,9 +69,7 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
     (wiki) => wiki._raw.flattenedPath === params.slug.join("/")
   );
 
-  if (!wiki) {
-    notFound();
-  }
+  if (!wiki) notFound();
 
   const hasParent = wiki._raw.flattenedPath.split("/").length > 2;
   let parentWiki;
@@ -88,6 +93,8 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
     direction = "rtl";
   }
 
+  const MDXContent = useMDXComponent(wiki.body.code);
+
   return (
     <div dir={direction}>
       <Header
@@ -99,10 +106,7 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
       />
       <div className="md:grid md:grid-cols-3 xl:grid-cols-4 md:gap-x-12 lg:gap-x-24 max-w-screen-2xl mx-auto px-4 lg:px-24">
         <aside className="col-span-1 relative hidden xl:block">
-          <div className="sticky top-6">
-            <MainImage wiki={wiki} />
-            <Socials socialItems={socialItems} />
-          </div>
+          <div className="sticky top-6">Table of Contents</div>
         </aside>
         <article className="col-span-2">
           <main className="grid gap-y-6 lg:max-w-xl xl:max-w-none xl:mx-auto text-xl">
@@ -118,17 +122,16 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
                 </div>
               </div>
             </div>
-            <div
-              dangerouslySetInnerHTML={{ __html: wiki.body.html }}
-              className="grid gap-y-6"
-            ></div>
+            <div className="article-body">
+              <MDXContent components={mdxComponents} />
+            </div>
           </main>
         </article>
-        <aside className="col-span-1 relative hidden md:block">
-          <div className="sticky top-6">
-            <MainImage wiki={wiki} className="xl:hidden" />
+        <aside className="col-span-1 hidden md:block">
+          <div>
+            <MainImage wiki={wiki} />
             <Biography wiki={wiki} />
-            <Socials socialItems={socialItems} className="xl:hidden" />
+            <Socials socialItems={socialItems} />
           </div>
         </aside>
       </div>
@@ -138,13 +141,7 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
 
 export default WikiPage;
 
-function Socials({
-  className,
-  socialItems,
-}: {
-  className?: string;
-  socialItems: Record<string, string>;
-}) {
+function Socials({ socialItems }: { socialItems: Record<string, string> }) {
   const filteredSocials = socialItems
     ? Object.entries(socialItems).slice(0, -2)
     : [];
@@ -154,7 +151,7 @@ function Socials({
   }
 
   return (
-    <div className={`flex flex-wrap gap-2 md:gap-3 mt-4 ${className}`}>
+    <div className="flex flex-wrap gap-2 md:gap-3 mt-4 ">
       {filteredSocials.map(([platform, url]) => (
         <SocialLink key={platform} url={url} type={platform} />
       ))}
@@ -162,14 +159,14 @@ function Socials({
   );
 }
 
-function MainImage({ className, wiki }: { className?: string; wiki: Wiki }) {
+function MainImage({ wiki }: { wiki: Wiki }) {
   return (
     <Image
       src={wiki.image}
       width={500}
       height={500}
       priority
-      className={`w-full aspect-square object-top object-cover rounded-lg mb-4 ${className}`}
+      className="w-full aspect-square object-top object-cover rounded-lg mb-4"
       alt={wiki.image_alt}
     />
   );
