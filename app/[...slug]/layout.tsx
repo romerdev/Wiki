@@ -3,5 +3,5 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="my-12">{children}</div>;
+  return <div className="my-7 lg:my-12">{children}</div>;
 }

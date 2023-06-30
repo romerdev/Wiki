@@ -49,6 +49,10 @@ article a {
   @apply mb-6;
 }
 
+.article-body q {
+  @apply block;
+}
+
 .article-body ul {
   @apply list-disc list-inside ml-4;
 }

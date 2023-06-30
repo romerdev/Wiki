@@ -24,9 +24,7 @@ const Header: React.FC<HeaderProps> = ({
       </a>
     </div>
     <div className="col-span-2">
-      <h1 className="font-bold text-2xl lg:text-4xl text-start xs:text-center xl:text-start">
-        {title}
-      </h1>
+      <h1 className="font-bold text-4xl hidden xl:block">{title}</h1>
       {parentTitle && parentLink && (
         <p>
           Main page:{" "}

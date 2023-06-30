@@ -11,6 +11,9 @@ import { Spotify } from "react-spotify-embed";
 
 const mdxComponents: MDXComponents = {
   Spotify: ({ link }) => <Spotify wide link={link as string} />,
+  Quote: ({ children }) => (
+    <q className="text-3xl lg:text-6xl lg:-mx-8 text-center">{children}</q>
+  ),
 };
 
 export const generateStaticParams = async () =>
@@ -51,7 +54,7 @@ export const generateMetadata = ({
   }
 
   return {
-    title: metaTitle,
+    title: metaTitle + " | Wiki",
     description: wiki.intro,
     parentWiki,
     openGraph: {
@@ -110,6 +113,19 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
         </aside>
         <article className="col-span-2">
           <main className="grid gap-y-6 lg:max-w-xl xl:max-w-none xl:mx-auto text-xl">
+            <div>
+              <h1 className="font-bold text-3xl lg:text-4xl xl:hidden">
+                {wiki.title}
+              </h1>
+              {parentWiki?.title && parentWiki?.url && (
+                <p>
+                  Main page:{" "}
+                  <a href={parentWiki.url} className="link-color">
+                    {parentWiki.title}
+                  </a>
+                </p>
+              )}
+            </div>
             <p>{wiki.intro}</p>
             <div className="relative md:hidden">
               <div className="sm:w-52 sm:h-52 sm:absolute sm:end-0">
