@@ -8,7 +8,7 @@ const EditButton: React.FC<EditButtonProps> = ({ url }) => (
   <a
     className="icon-button"
     aria-label="Contribute to this page"
-    href={`https://github.com/romerdev/Wiki/blob/main/wiki${url}.md`}
+    href={`https://github.com/romerdev/Wiki/blob/main/wiki${url}.mdx`}
     target="_blank"
     title="Contribute to this page"
   >
