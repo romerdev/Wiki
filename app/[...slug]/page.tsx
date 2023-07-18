@@ -14,6 +14,18 @@ const mdxComponents: MDXComponents = {
   Quote: ({ children }) => (
     <q className="text-3xl lg:text-6xl lg:-mx-8 text-center">{children}</q>
   ),
+  Image: ({ src, alt }) => (
+    <figure>
+      <Image
+        src={src as string}
+        alt={alt as string}
+        layout="fill"
+        className="w-full h-full object-cover"
+        objectFit="contain"
+      />
+      <figcaption>{alt as string}</figcaption>
+    </figure>
+  ),
 };
 
 export const generateStaticParams = async () =>
@@ -92,7 +104,7 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
 
   let direction = "ltr";
 
-  if (wiki.url.includes("ar")) {
+  if (wiki.url.includes("/ar/")) {
     direction = "rtl";
   }
 
@@ -113,17 +125,17 @@ const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
         </aside>
         <article className="col-span-2">
           <main className="grid gap-y-6 lg:max-w-xl xl:max-w-none xl:mx-auto text-xl">
-            <h1 className="font-bold text-3xl lg:text-4xl xl:hidden">
-              {wiki.title}
-            </h1>
-            {parentWiki?.title && parentWiki?.url && (
-              <p>
-                Main page:{" "}
-                <a href={parentWiki.url} className="link-color">
-                  {parentWiki.title}
-                </a>
-              </p>
-            )}
+            <div className="xl:hidden">
+              <h1 className="font-bold text-3xl lg:text-4xl">{wiki.title}</h1>
+              {parentWiki?.title && parentWiki?.url && (
+                <p>
+                  Main page:{" "}
+                  <a href={parentWiki.url} className="link-color">
+                    {parentWiki.title}
+                  </a>
+                </p>
+              )}
+            </div>
             <p>{wiki.intro}</p>
             <div className="relative md:hidden">
               <div className="sm:w-52 sm:h-52 sm:absolute sm:end-0">

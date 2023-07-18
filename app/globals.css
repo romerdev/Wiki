@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 .bg-primary-color {
-  @apply bg-emerald-100;
+  @apply bg-amber-200;
 }
 
 .bg-accent-color {
-  @apply bg-emerald-200;
+  @apply bg-amber-300;
 }
 
 a:focus,
@@ -16,7 +16,7 @@ button:focus {
 }
 
 .icon-button {
-  @apply bg-emerald-300 hover:bg-emerald-400 focus:bg-emerald-400 text-emerald-900 h-8 w-8 grid place-content-center rounded-md;
+  @apply bg-amber-400 hover:bg-amber-500 focus:bg-amber-500 text-black hover:text-black h-8 w-8 grid place-content-center rounded-md;
 }
 
 button {
@@ -24,11 +24,11 @@ button {
 }
 
 .link-color {
-  @apply text-emerald-600;
+  @apply text-amber-700 hover:text-amber-800;
 }
 
 article a {
-  @apply link-color font-bold underline-offset-1 hover:underline;
+  @apply link-color underline-offset-2 underline hover:underline;
 }
 
 .biography > * {
@@ -58,7 +58,7 @@ article a {
 }
 
 .article-body h2 {
-  @apply text-3xl font-bold mb-4 pb-2 border-b-2 border-emerald-300;
+  @apply text-3xl font-bold mb-4 pb-2 border-b-2 border-amber-400;
 }
 
 .article-body h3 {
@@ -66,5 +66,22 @@ article a {
 }
 
 .article-body blockquote {
-  @apply border-l-4 border-emerald-300 pl-4 mb-6;
+  @apply border-l-2 border-amber-400 pl-4 mb-4;
+}
+
+.article-body blockquote p {
+  @apply mb-0;
+}
+
+figcaption {
+  @apply text-sm text-neutral-700 lg:ml-4 mb-6;
+}
+
+.article-body img {
+  position: relative !important;
+  @apply w-full mb-3 rounded-md;
+}
+
+.article-body figure:has(> img) {
+  @apply lg:-mx-6 relative;
 }
