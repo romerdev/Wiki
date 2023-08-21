@@ -9,6 +9,14 @@ import { marked } from "marked";
 import { sanitize } from "isomorphic-dompurify";
 import { Spotify } from "react-spotify-embed";
 
+// Helper function to find a wiki by its flattened path
+const getWikiByFlattenedPath = (slug: Array<string>) =>
+  allWikis.find((wiki) => wiki._raw.flattenedPath === slug.join("/"));
+
+// Helper function to determine if a wiki has a parent
+const hasParentWiki = (wiki: Wiki) =>
+  wiki._raw.flattenedPath.split("/").length > 2;
+
 const mdxComponents: MDXComponents = {
   Spotify: ({ link }) => <Spotify wide link={link as string} />,
   Quote: ({ children }) => (
@@ -36,10 +44,9 @@ export const generateMetadata = ({
 }: {
   params: { slug: Array<string> };
 }) => {
-  const wiki = allWikis.find(
-    (wiki) => wiki._raw.flattenedPath === params.slug.join("/")
-  );
+  const wiki = getWikiByFlattenedPath(params.slug);
 
+  // If the wiki isn't found, return notFound: true
   if (!wiki) {
     return {
       notFound: true,
@@ -80,19 +87,19 @@ interface WikiPageProps {
 }
 
 const WikiPage: React.FC<WikiPageProps> = ({ params }) => {
-  const wiki = allWikis.find(
-    (wiki) => wiki._raw.flattenedPath === params.slug.join("/")
-  );
+  const wiki = getWikiByFlattenedPath(params.slug);
 
+  // If the wiki isn't found, redirect to the not found page
   if (!wiki) notFound();
 
-  const hasParent = wiki._raw.flattenedPath.split("/").length > 2;
   let parentWiki;
+  if (hasParentWiki(wiki)) {
+    parentWiki = getWikiByFlattenedPath(params.slug.slice(0, -1));
 
-  if (hasParent) {
-    parentWiki = allWikis.find(
-      (wiki) => wiki._raw.flattenedPath === params.slug.slice(0, -1).join("/")
-    );
+    // Handle the possibility that the parent wiki isn't found
+    if (!parentWiki) {
+      console.error("Parent wiki not found for:", params.slug);
+    }
   }
 
   const socialItems = wiki.socials || {};
